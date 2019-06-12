@@ -16,7 +16,7 @@ scram b -j 3
 file and make sure `usePFRecHitFlag` is `True`
 * For interactive run:
 ```
-voms-proxy-init --rfc --voms cms --valid 168:00
 cd $CMSSW_BASE/src/Validation/EcalValidation/test
+voms-proxy-init --rfc --voms cms --valid 168:00
 cmsRun ecalvalidationMCAOD_cfg.py
 ```
