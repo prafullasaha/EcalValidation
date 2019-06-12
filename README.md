@@ -13,7 +13,7 @@ scram b -j 3
 * To run PFRechits part, go to 
 `$CMSSW_BASE/src/Validation/EcalValidation/test/ecalvalidationMCAOD_cfg.py` 
 file and make sure `usePFRecHitFlag` is `True`
-* To run interctively
+* For interactive run:
 ```
 voms-proxy-init --rfc --voms cms --valid 168:00
 cd $CMSSW_BASE/src/Validation/EcalValidation/test
