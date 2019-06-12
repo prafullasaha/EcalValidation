@@ -33,6 +33,9 @@
 #include "DataFormats/EcalDetId/interface/ESDetId.h"
 #include "DataFormats/EcalDigi/interface/EcalDigiCollections.h"
 #include "DataFormats/EcalRecHit/interface/EcalRecHitCollections.h"
+#include "DataFormats/ParticleFlowReco/interface/PFRecHit.h"
+#include "DataFormats/ParticleFlowReco/interface/PFRecHitFwd.h"
+#include "DataFormats/ParticleFlowReco/interface/PFRecHitFraction.h"
 #include "DataFormats/EgammaReco/interface/SuperCluster.h"
 #include "DataFormats/EgammaReco/interface/SuperClusterFwd.h"
 #include "DataFormats/EgammaReco/interface/BasicCluster.h"
@@ -134,6 +137,10 @@ class EcalValidationAOD : public edm::EDAnalyzer {
          edm::EDGetTokenT<reco::VertexCollection> PV_;
 	 edm::EDGetTokenT<EcalRecHitCollection> recHitCollection_EB_;
 	 edm::EDGetTokenT<EcalRecHitCollection> recHitCollection_EE_;
+
+	 edm::EDGetTokenT<PFRecHitCollection> PFrecHitCollection_EB_;
+         edm::EDGetTokenT<PFRecHitCollection> PFrecHitCollection_EE_;
+
          edm::EDGetTokenT<reco::BasicClusterCollection> basicClusterCollection_EB_;
 	 edm::EDGetTokenT<reco::BasicClusterCollection> basicClusterCollection_EE_;
 	 edm::EDGetTokenT<reco::SuperClusterCollection> superClusterCollection_EB_;
@@ -146,7 +153,7 @@ class EcalValidationAOD : public edm::EDAnalyzer {
 	 edm::EDGetTokenT<reco::BeamSpot> beamSpot_ ;
          edm::EDGetTokenT<reco::CaloJetCollection> jets_;
 	 
-bool isMC;
+         bool isMC;
 	 double ethrEB_;
 	 double ethrEE_;
          double gainId_;
@@ -174,7 +181,7 @@ bool isMC;
 	 
 	 /// Use Reco Flag from RH
 	 bool useRecoFlag_;
-	 
+	 bool usePFRecHitFlag_;
 	 // ... barrel
 	 bool isMonEBpi0_;
 
@@ -239,27 +246,6 @@ vector<float>    recHitsEBtime, recHitsEBChi2;
          TH2D* h_DB_noiseMap_EB;
          TH2D* h_DB_noiseMap_EEP;
          TH2D* h_DB_noiseMap_EEM;
-         TH2D* h_DB_noiseMap_EB_cut6;
-         TH2D* h_DB_noiseMap_EEP_cut6;
-         TH2D* h_DB_noiseMap_EEM_cut6;
-         TH2D* h_DB_noiseMap_EB_cut5_5;
-         TH2D* h_DB_noiseMap_EEP_cut5_5;
-         TH2D* h_DB_noiseMap_EEM_cut5_5;
-         TH2D* h_DB_noiseMap_EB_cut5;
-         TH2D* h_DB_noiseMap_EEP_cut5;
-         TH2D* h_DB_noiseMap_EEM_cut5;
-         TH2D* h_DB_noiseMap_EB_cut4_5;
-         TH2D* h_DB_noiseMap_EEP_cut4_5;
-         TH2D* h_DB_noiseMap_EEM_cut4_5;
-         TH2D* h_DB_noiseMap_EB_cut4;
-         TH2D* h_DB_noiseMap_EEP_cut4;
-         TH2D* h_DB_noiseMap_EEM_cut4;
-         TH2D* h_DB_noiseMap_EB_cut3_5;
-         TH2D* h_DB_noiseMap_EEP_cut3_5;
-         TH2D* h_DB_noiseMap_EEM_cut3_5;
-         TH2D* h_DB_noiseMap_EB_cut3;
-         TH2D* h_DB_noiseMap_EEP_cut3;
-         TH2D* h_DB_noiseMap_EEM_cut3;
 
          // ... DataBase LaserCorr map
       edm::LumiReWeighting LumiWeights_;
@@ -362,82 +348,20 @@ vector<float>    recHitsEBtime, recHitsEBChi2;
          TH1D *h_recHits_EEP_phi;
          TH1D *h_recHits_EEM_phi;
          
-         TH1D *h_recHits_eta_cut6;  // all
-         TH1D *h_recHits_EB_eta_cut6;
-         TH1D *h_recHits_EEP_eta_cut6;
-         TH1D *h_recHits_EEM_eta_cut6;
-
-         TH1D *h_recHits_EB_phi_cut6;
-         TH1D *h_recHits_EE_phi_cut6;
-         TH1D *h_recHits_EEP_phi_cut6;
-         TH1D *h_recHits_EEM_phi_cut6;
-          
-         TH1D *h_recHits_eta_cut5_5;  // all
-         TH1D *h_recHits_EB_eta_cut5_5;
-         TH1D *h_recHits_EEP_eta_cut5_5;
-         TH1D *h_recHits_EEM_eta_cut5_5;
-
-         TH1D *h_recHits_EB_phi_cut5_5;
-         TH1D *h_recHits_EE_phi_cut5_5;
-         TH1D *h_recHits_EEP_phi_cut5_5;
-         TH1D *h_recHits_EEM_phi_cut5_5;
-         
-         TH1D *h_recHits_eta_cut5;  // all
-         TH1D *h_recHits_EB_eta_cut5;
-         TH1D *h_recHits_EEP_eta_cut5;
-         TH1D *h_recHits_EEM_eta_cut5;
-
-         TH1D *h_recHits_EB_phi_cut5;
-         TH1D *h_recHits_EE_phi_cut5;
-         TH1D *h_recHits_EEP_phi_cut5;
-         TH1D *h_recHits_EEM_phi_cut5;
-   
-         TH1D *h_recHits_eta_cut4_5;  // all
-         TH1D *h_recHits_EB_eta_cut4_5;
-         TH1D *h_recHits_EEP_eta_cut4_5;
-         TH1D *h_recHits_EEM_eta_cut4_5;
-
-         TH1D *h_recHits_EB_phi_cut4_5;
-         TH1D *h_recHits_EE_phi_cut4_5;
-         TH1D *h_recHits_EEP_phi_cut4_5;
-         TH1D *h_recHits_EEM_phi_cut4_5;
-
-         TH1D *h_recHits_eta_cut4;  // all
-         TH1D *h_recHits_EB_eta_cut4;
-         TH1D *h_recHits_EEP_eta_cut4;
-         TH1D *h_recHits_EEM_eta_cut4;
-
-         TH1D *h_recHits_EB_phi_cut4;
-         TH1D *h_recHits_EE_phi_cut4;
-         TH1D *h_recHits_EEP_phi_cut4;
-         TH1D *h_recHits_EEM_phi_cut4;
-   
-         TH1D *h_recHits_eta_cut3_5;  // all
-         TH1D *h_recHits_EB_eta_cut3_5;
-         TH1D *h_recHits_EEP_eta_cut3_5;
-         TH1D *h_recHits_EEM_eta_cut3_5;
-
-         TH1D *h_recHits_EB_phi_cut3_5;
-         TH1D *h_recHits_EE_phi_cut3_5;
-         TH1D *h_recHits_EEP_phi_cut3_5;
-         TH1D *h_recHits_EEM_phi_cut3_5;
- 
-         TH1D *h_recHits_eta_cut3;  // all
-         TH1D *h_recHits_EB_eta_cut3;
-         TH1D *h_recHits_EEP_eta_cut3;
-         TH1D *h_recHits_EEM_eta_cut3;
-
-         TH1D *h_recHits_EB_phi_cut3;
-         TH1D *h_recHits_EE_phi_cut3;
-         TH1D *h_recHits_EEP_phi_cut3;
-         TH1D *h_recHits_EEM_phi_cut3;
-
          // max Et eta/phi distributions
          TH1D *h_recHits_eta_MaxEt;
          TH1D *h_recHits_EB_phi_MaxEt;
          TH1D *h_recHits_EE_phi_MaxEt;
+//---------PFRechits-------------------------------------------
+	 TH1D *h_PFRecHitEnergy;
+	 TH1D *h_PFRecHitDepth;
+	 TH1D *h_PFRecHitTime;
+	 TH1D *h_PFRecHitpt2;
+	 TH1D *h_PFRecHitEta;
+	 TH1D *h_PFRecHitPhi;
+	 TH1D *h_PFRecHitIEta;
 
-	 // Basic Clusters ----------------------------------------------
+// Basic Clusters ----------------------------------------------
 	 
 	 // ... barrel
 	 TH1D *h_basicClusters_EB_size;
@@ -558,47 +482,6 @@ vector<float>    recHitsEBtime, recHitsEBChi2;
 	 TH1D *h_superClusters_EB_phi;
 	 TH1D *h_superClusters_EE_phi;
          
-         TH1D *h_superClusters_eta_cut6;
-	 TH1D *h_superClusters_EB_eta_cut6;
-	 TH1D *h_superClusters_EE_eta_cut6;
-	 TH1D *h_superClusters_EB_phi_cut6;
-	 TH1D *h_superClusters_EE_phi_cut6;
-
-	 TH1D *h_superClusters_eta_cut5_5;
-	 TH1D *h_superClusters_EB_eta_cut5_5;
-	 TH1D *h_superClusters_EE_eta_cut5_5;
-	 TH1D *h_superClusters_EB_phi_cut5_5;
-	 TH1D *h_superClusters_EE_phi_cut5_5;
-
-	 TH1D *h_superClusters_eta_cut5;
-	 TH1D *h_superClusters_EB_eta_cut5;
-	 TH1D *h_superClusters_EE_eta_cut5;
-	 TH1D *h_superClusters_EB_phi_cut5;
-	 TH1D *h_superClusters_EE_phi_cut5;
-
-	 TH1D *h_superClusters_eta_cut4_5;
-	 TH1D *h_superClusters_EB_eta_cut4_5;
-	 TH1D *h_superClusters_EE_eta_cut4_5;
-	 TH1D *h_superClusters_EB_phi_cut4_5;
-	 TH1D *h_superClusters_EE_phi_cut4_5;
-
-	 TH1D *h_superClusters_eta_cut4;
-	 TH1D *h_superClusters_EB_eta_cut4;
-	 TH1D *h_superClusters_EE_eta_cut4;
-	 TH1D *h_superClusters_EB_phi_cut4;
-	 TH1D *h_superClusters_EE_phi_cut4;
-
-	 TH1D *h_superClusters_eta_cut3_5;
-	 TH1D *h_superClusters_EB_eta_cut3_5;
-	 TH1D *h_superClusters_EE_eta_cut3_5;
-	 TH1D *h_superClusters_EB_phi_cut3_5;
-	 TH1D *h_superClusters_EE_phi_cut3_5;
-
-	 TH1D *h_superClusters_eta_cut3;
-	 TH1D *h_superClusters_EB_eta_cut3;
-	 TH1D *h_superClusters_EE_eta_cut3;
-	 TH1D *h_superClusters_EB_phi_cut3;
-	 TH1D *h_superClusters_EE_phi_cut3;
          
          TH2D *h2_superClusters_EB_seedTimeVsEnergy;
          TH2D *h2_superClusters_EE_seedTimeVsEnergy;

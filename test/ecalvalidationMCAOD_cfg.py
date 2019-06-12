@@ -11,6 +11,7 @@ process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff")
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
 #process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_TrancheIV_v8')
+#process.GlobalTag = GlobalTag(process.GlobalTag, '100X_upgrade2018_realistic_v10')
 process.GlobalTag = GlobalTag(process.GlobalTag, '90X_upgrade2017_realistic_v20')
 process.load("Configuration.StandardSequences.MagneticField_cff")
 
@@ -28,10 +29,16 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 ##process.load("MagneticField.Engine.autoMagneticFieldProducer_cfi")
 #
 process.source = cms.Source("PoolSource",
-    skipEvents = cms.untracked.uint32(0),                       
+    skipEvents = cms.untracked.uint32(0),
+#     eventsToProcess = cms.untracked.VEventRange('1:1-1:100'),
+#     eventsToSkip = cms.untracked.VEventRange('1:1-1:100'),
+#    lumisToProcess = cms.untracked.VLuminosityBlockRange('1:1-1:6','2:100-3:max'),
+#    lumisToSkip = cms.untracked.VLuminosityBlockRange('1:1-1:6','2:100-3:max'),                       
     fileNames = cms.untracked.vstring(
-    'file:SingleNeutrino_flatpileup28to42_AOD_1rootfile.root',
-#'/store/mc/PhaseISpring17DR/SingleNeutrino/AODSIM/FlatPU28to62_90X_upgrade2017_realistic_v20-v1/60000/00EC273F-682E-E711-A96C-549F3525DFE8.root',
+#"/store/mc/RunIISpring18DRPremix/SingleNeutrino_Spring18/AODSIM/100X_upgrade2018_realistic_v10-v2/40000/86E12AB8-9990-E811-BFEA-FA163E53E163.root"
+'/store/mc/PhaseISpring17DR/SingleNeutrino/AODSIM/FlatPU28to62_90X_upgrade2017_realistic_v20-v1/60000/00EC273F-682E-E711-A96C-549F3525DFE8.root',
+#"/store/mc/PhaseISpring17DR/SingleNeutrino/AODSIM/FlatPU28to62_90X_upgrade2017_realistic_v20-v1/60000/00EC273F-682E-E711-A96C-549F3525DFE8.root",
+#    'file:SingleNeutrino_flatpileup28to42_AOD_1rootfile.root',
 #'/store/mc/PhaseIFall16DR/MinBias_TuneCUETP8M1_13TeV-pythia8/AODSIM/NoPUNZS_90X_upgrade2017_realistic_v6_C1_ext1-v1/120000/0AEFBB63-6C0A-E711-8737-02163E01A74F.root',
 #'/store/relval/CMSSW_9_2_2/RelValProdMinBias/GEN-SIM-RECO/91X_mcRun1_realistic_v2-v2/10000/7473BBA6-B14D-E711-8057-0CC47A7452D8.root',
 #'/store/relval/CMSSW_9_2_2/RelValProdMinBias/GEN-SIM-RECO/91X_mcRun1_realistic_v2-v2/10000/C0124DA2-B14D-E711-8D0B-0CC47A4D769A.root',
@@ -53,9 +60,9 @@ process.source = cms.Source("PoolSource",
      
     )
 )
-
+#process.eventsToProcess = cms.untracked.VEventRange('1:1-1:1000')
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-6)
+    input = cms.untracked.int32(-1)
 )
 
 
@@ -89,7 +96,7 @@ process.primaryVertexFilter = cms.EDFilter("GoodVertexFilter",
 
 
 process.load("Validation.EcalValidation.ecalvalidationAOD_cfi")
-
+process.ecalvalidation.usePFRecHitFlag = cms.bool(True)
 process.TFileService = cms.Service("TFileService",
     fileName = cms.string('EcalValidation_MC_AOD.root')
 )

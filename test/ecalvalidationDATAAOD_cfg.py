@@ -12,7 +12,8 @@ process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condD
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
 #process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_Prompt_v16')
 #process.GlobalTag = GlobalTag(process.GlobalTag, '92X_dataRun2_Prompt_v5')
-process.GlobalTag = GlobalTag(process.GlobalTag, '92X_dataRun2_2017Repro_v4')
+#process.GlobalTag = GlobalTag(process.GlobalTag, '92X_dataRun2_2017Repro_v4')
+process.GlobalTag = GlobalTag(process.GlobalTag, '101X_dataRun2_Express_v7')
 #process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_Prompt_Candidate_forTkDPG_v2')
 process.load("Configuration.StandardSequences.MagneticField_cff")
 
@@ -36,9 +37,12 @@ process.source = cms.Source("PoolSource",
 #'/store/data/Run2017C/ZeroBias/AOD/12Sep2017-v1/00000/000CD359-A3A8-E711-B551-D8D385FF319D.root'
 #'/store/data/Run2017B/ZeroBias/AOD/06Jul2017-v2/130000/184D4248-BA62-E711-8524-0CC47A7C3404.root',
 #'/store/data/Run2017C/ZeroBias/AOD/12Sep2017-v1/70000/EAA6AC00-8FA3-E711-B69E-1866DAEA8230.root',
- '/store/data/Run2017F/ZeroBias/AOD/06Nov2017-v1/150000/00DE8807-03C3-E711-A5A0-D067E5F914D3.root',    
- 
-   ),
+# '/store/data/Run2017F/ZeroBias/AOD/06Nov2017-v1/150000/00DE8807-03C3-E711-A5A0-D067E5F914D3.root',    
+#"/store/data/Run2018A/MinimumBias/AOD/PromptReco-v1/000/316/234/00000/9E564859-D158-E811-814E-02163E017F67.root" 
+#"/store/data/Run2018B/MinimumBias/AOD/PromptReco-v2/000/319/308/00000/A8AC2FFA-3183-E811-B42F-FA163EAEB2B5.root"
+"/store/data/Run2018A/MinimumBias/AOD/PromptReco-v2/000/316/566/00000/40E526CF-BB5C-E811-92FB-FA163EB735BE.root"
+#,"/store/data/Run2018A/MinimumBias/AOD/PromptReco-v2/000/316/552/00000/6EFFE05F-655C-E811-A022-02163E017EB0.root","/store/data/Run2018A/MinimumBias/AOD/PromptReco-v2/000/316/512/00000/8A6E1E80-135C-E811-9093-FA163E746DA4.root","/store/data/Run2018A/MinimumBias/AOD/PromptReco-v2/000/316/518/00000/5AFA279C-195C-E811-AFB1-02163E019F73.root","/store/data/Run2018A/MinimumBias/AOD/PromptReco-v2/000/316/517/00000/1EBB27D4-3E5C-E811-A6FD-FA163E74AC8B.root"   
+),
     inputCommands = cms.untracked.vstring(
                   'keep *',
                   'drop CTPPSPixelClusteredmDetSetVector_*_*_*',

@@ -21,6 +21,10 @@ ecalvalidation = cms.EDAnalyzer("EcalValidationAOD",
     #recHitCollection_EB       = cms.InputTag("ecalRecHit","EcalRecHitsEB"),
     recHitCollection_EE    = cms.InputTag("reducedEcalRecHitsEE"),
     recHitCollection_EB    = cms.InputTag("reducedEcalRecHitsEB"),
+
+    PFrecHitCollection_EE    = cms.InputTag("particleFlowRecHitECAL", "Cleaned"),
+    PFrecHitCollection_EB    = cms.InputTag("particleFlowRecHitECAL", "Cleaned"),
+
     #basicClusterCollection_EB = cms.InputTag("hybridSuperClusters","hybridBarrelBasicClusters"),
     basicClusterCollection_EB = cms.InputTag("particleFlowSuperClusterECAL","particleFlowBasicClusterECALBarrel"),
     #recHitCollection_ES       = cms.InputTag("ecalPreshowerRecHit","EcalRecHitsES"),
@@ -33,7 +37,7 @@ ecalvalidation = cms.EDAnalyzer("EcalValidationAOD",
 
                                     
     ethrEB = cms.double(4.0),
-    isMC = cms.bool(True),
+    isMC = cms.bool(False),
     ethrEE = cms.double(8.0),
     #ethrEB = cms.double(0.0),
     #ethrEE = cms.double(0.0),
@@ -95,6 +99,7 @@ ecalvalidation = cms.EDAnalyzer("EcalValidationAOD",
     maskEEFile = cms.untracked.string('maskEE.txt'),
 
     useRecoFlag = cms.untracked.bool(False),
+    usePFRecHitFlag = cms.bool(False),    
       
     posCalcParameters = cms.PSet( 
       LogWeighted = cms.bool( True ),

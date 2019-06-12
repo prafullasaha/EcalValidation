@@ -1804,7 +1804,7 @@ cout << "done filling some basic variables  "<< endl;
 
     //Now get the seed:
     EBDetId theSeedIdEB = EcalClusterTools::getMaximum( (*itSC).hitsAndFractions(), theBarrelEcalRecHits ).first;
-    EcalRecHitCollection::const_iterator theSeedEB = theBarrelEcalRecHits->find (theSeedIdEB) ;
+//    EcalRecHitCollection::const_iterator theSeedEB = theBarrelEcalRecHits->find (theSeedIdEB) ;
     
     h_superClusters_EB_occupancy ->Fill(theSeedIdEB.iphi(),theSeedIdEB.ieta(), MyWeight);
     
@@ -1919,7 +1919,7 @@ for (reco::SuperClusterCollection::const_iterator itSC = theEndcapSuperClusters-
   
   //Now get the seed:
   EEDetId theSeedIdEE = EcalClusterTools::getMaximum( (*itSC).hitsAndFractions(), theEndcapEcalRecHits ).first;
-  EcalRecHitCollection::const_iterator theSeedEE = theEndcapEcalRecHits->find (theSeedIdEE) ;
+//  EcalRecHitCollection::const_iterator theSeedEE = theEndcapEcalRecHits->find (theSeedIdEE) ;
   
   
   if(theSeedIdEE.zside() > 0) h_superClusters_EEP_occupancy ->Fill(theSeedIdEE.ix()-0.5,theSeedIdEE.iy()-0.5, MyWeight);
