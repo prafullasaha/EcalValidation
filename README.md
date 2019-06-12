@@ -14,7 +14,8 @@ scram b -j 3
 `$CMSSW_BASE/src/Validation/EcalValidation/test/ecalvalidationMCAOD_cfg.py` 
 file and make sure `usePFRecHitFlag` is `True`
 * To run interctively
-`
+```
 voms-proxy-init --rfc --voms cms --valid 168:00
 cd $CMSSW_BASE/src/Validation/EcalValidation/test
-cmsRun ecalvalidationMCAOD_cfg.py` for AOD MC sample
+cmsRun ecalvalidationMCAOD_cfg.py
+```
