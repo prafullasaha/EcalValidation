@@ -2,11 +2,16 @@
 * Before Start follow these steps:
 ```
 cmsrel CMSSW_10_2_14
-cd CMSSW_10_2_14/src
+cd $CMSSW_BASE/src
 cmsenv
 mkdir Validation
-cd CMSSW_10_2_14/src/Validation
+cd $CMSSW_BASE/src/Validation
 git clone https://github.com/prafullasaha/EcalValidation EcalValidation
 cd $CMSSW_BASE/src
 scram b -j 3
 ```
+* To run PFRechits part go to
+`
+$CMSSW_BASE/src/Validation/EcalValidation/test/ecalvalidationMCAOD_cfg.py
+`
+make sure `usePFRecHitFlag` is `True`
