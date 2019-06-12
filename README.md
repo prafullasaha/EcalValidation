@@ -1,5 +1,5 @@
 # EcalValidation
-Before Start follow these bellow steps:
+* Before Start follow these steps:
 ```
 cmsrel CMSSW_10_2_14
 cd CMSSW_10_2_14/src
