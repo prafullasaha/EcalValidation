@@ -10,8 +10,6 @@ git clone https://github.com/prafullasaha/EcalValidation EcalValidation
 cd $CMSSW_BASE/src
 scram b -j 3
 ```
-* To run PFRechits part go to
-`
-$CMSSW_BASE/src/Validation/EcalValidation/test/ecalvalidationMCAOD_cfg.py
-`
-make sure `usePFRecHitFlag` is `True`
+* To run PFRechits part, go to 
+`$CMSSW_BASE/src/Validation/EcalValidation/test/ecalvalidationMCAOD_cfg.py` 
+file and make sure `usePFRecHitFlag` is `True`
