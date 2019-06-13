@@ -6,7 +6,6 @@ cd $CMSSW_BASE/src
 cmsenv
 mkdir Validation
 cd $CMSSW_BASE/src/Validation
-git cms-init
 git clone https://github.com/prafullasaha/EcalValidation EcalValidation
 cd $CMSSW_BASE/src
 scram b -j 3
